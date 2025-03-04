@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:25 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/02 10:59:19 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/04 15:04:47 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,38 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
-void    *your_turn(void *arg)
+void	free_all(t_table *table)
 {
-	while (1)
-	{
-		printf("Your turn\n");
-		sleep(2);
-	}
+	free(table->philos);
+	exit(0);
 }
-
-void    my_turn(void)
+void	init_philos(t_table *table)
 {
-	printf("hello world\n");
-	while (1)
-	{
-		printf("My turn\n");
-		sleep(1);
-	}
-}
-
-t_table	init_philos(t_table *table)
-{
-	t_philo	philosopher;
 	int		i;
 
-	i = 0;
+	i = 1;
+	printf("init_philos ran!\n");
 	while (i < table->nbr_of_philos)
 	{
-		table->philosophers[i].state = ;
+		table->philos[i].id = i;
+		table->philos[i].state = HUNGRY;
+		table->philos[i].fork = NOT_USING;
+		table->philos[i].last_meal.tv_sec = 0;
+		table->philos[i].last_meal.tv_usec = 0;
+		i ++;
 	}
 }
-
 
 t_table	init_table(int ac, char *av[])
 {
 	t_table			table;
 
-	if (ac != 4)
-	exit(1);
+	if (ac != 5)
+		exit(1);
 	table.nbr_of_philos = ft_atoi(av[1]);
+	table.philos = malloc(sizeof(t_philo) * table.nbr_of_philos + 1);
+	if (!table.philos)
+		exit(1);
 	table.forks_on_table = ft_atoi(av[1]);
 	table.ttd = ft_atoi(av[2]);
 	table.tte = ft_atoi(av[3]);
@@ -84,7 +77,6 @@ t_table	init_table(int ac, char *av[])
 int main(int ac, char *av[])
 {
 	pthread_t		*threads;
-	int				i;
 	struct timeval	t0;
 	struct timeval	t1;
 	t_table			table;
@@ -98,7 +90,7 @@ int main(int ac, char *av[])
 	// 	pthread_create(&threads[i++], NULL, your_turn, NULL);
 	// }
 	// sleep(10);
-	// gettimeofday(&t1, NULL);
-	printf("%d %d %d %d %d \n", table.nbr_of_philos, table.forks_on_table, table.ttd, table.tte, table.tts);
-	printf("%ld %d\n", t1.tv_sec- t0.tv_sec, t1.tv_usec-t0.tv_usec);
+	gettimeofday(&t1, NULL);
+	printf("%ld %d\n", t1.tv_sec - t0.tv_sec, t1.tv_usec - t0.tv_usec);
+	free_all(&table);
 }
