@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/04 14:56:08 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/05 05:30:43 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ enum e_fork
 	IN_USE
 };
 
+typedef struct s_times
+{
+	int	ttd;
+	int	tte;
+	int	tts;
+}	t_times;
+
 typedef struct s_philo
 {
 	int				id;
@@ -41,6 +48,7 @@ typedef struct s_philo
 	struct timeval	last_meal;
 	enum e_state	state;
 	enum e_fork		fork;
+	t_times			t;
 }   t_philo;
 
 typedef struct s_table
@@ -48,11 +56,15 @@ typedef struct s_table
 	t_philo	*philos;
 	int		nbr_of_philos;
 	int		forks_on_table;
-	int		ttd;
-	int		tte;
-	int		tts;
+	t_times	t;
 }	t_table;
 
+// init.c
+void	init_philos(t_table *table);
+t_table	init_table(int ac, char *av[]);
 
+// utils.c
+int	ft_atoi(const char *nptr);
+void	free_all(t_table *table);
 
 #endif
