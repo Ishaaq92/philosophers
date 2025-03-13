@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/04 15:39:11 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/13 07:23:04 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,8 @@ void	free_all(t_table *table)
 	free(table->philos);
 	exit(0);
 }
+
+// void	print_ts(struct timeval t, int id)
+// {
+// 	printf("%d %d has ", t.tv_sec*1000000 + t.tv_usec, id);
+// }
