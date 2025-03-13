@@ -7,7 +7,7 @@ VPATH = $(SDIR)
 
 BINARY = philo
 
-CFILES = philo.c utils.c init.c
+CFILES = philo.c utils.c init.c actions.c
 
 OBJECTS = $(CFILES:%.c=$(ODIR)/%.o)
 

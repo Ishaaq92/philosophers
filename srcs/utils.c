@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/13 07:23:04 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/13 08:38:55 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
-void	free_all(t_table *table)
+void	free_all(t_table *table, int error)
 {
 	free(table->philos);
+	free(table->forks);
+	if (error == 1)
+		exit(1);
 	exit(0);
 }
 

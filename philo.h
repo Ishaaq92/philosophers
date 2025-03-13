@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/13 08:20:01 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/13 08:39:17 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ t_table	init_table(int ac, char *av[]);
 
 // utils.c
 int		ft_atoi(const char *nptr);
-void	free_all(t_table *table);
+void	free_all(t_table *table, int error);
 
 #endif
