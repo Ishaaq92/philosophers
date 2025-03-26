@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/13 08:38:55 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/26 14:17:35 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ void	free_all(t_table *table, int error)
 	exit(0);
 }
 
-// void	print_ts(struct timeval t, int id)
-// {
-// 	printf("%d %d has ", t.tv_sec*1000000 + t.tv_usec, id);
-// }
+long int	time_val_diff(struct timeval t0, struct timeval t1)
+{
+	return ((t1.tv_sec - t0.tv_sec) * 1000000 + (t1.tv_usec - t0.tv_usec));
+}
+
+void	print_ts(struct timeval t, int id)
+{
+	printf("%ld %d has ", t.tv_sec*1000000 + t.tv_usec, id);
+}

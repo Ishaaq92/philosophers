@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/26 11:53:25 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/03/26 14:04:23 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_philos(t_table *table)
 	while (i <= table->nbr_of_philos)
 	{
 		table->philos[i].id = i;
-		printf("f: ID = %d\n", table->philos[i].id);
 		table->philos[i].state = HUNGRY;
 		table->philos[i].fork = &table->forks[i];
 		pthread_mutex_init(table->philos[i].fork, NULL);
@@ -34,11 +33,14 @@ void	init_philos(t_table *table)
 t_table	init_table(int ac, char *av[])
 {
 	t_table			table;
-
+	struct timeval	start;
+	
 	if (ac != 5)
 		exit(1);
 	table.nbr_of_philos = ft_atoi(av[1]);
 	table.philos = malloc(sizeof(t_philo) * (table.nbr_of_philos + 1));
+	table.start = start;
+	gettimeofday(&table.start, NULL);
 	if (!table.philos)
 		exit(1);
 	table.forks = malloc(sizeof(pthread_mutex_t) * (table.nbr_of_philos + 1));
