@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/13 08:39:17 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/26 11:14:09 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ t_table	init_table(int ac, char *av[]);
 // utils.c
 int		ft_atoi(const char *nptr);
 void	free_all(t_table *table, int error);
+
+// actions.c
+void	*eat(void *arg);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/13 08:43:59 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/03/20 15:58:56 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@ void	*eat(void *arg)
 	t_table			*table;
 	t_philo			*philo;
 
-	printf("hiii");
 	state = (t_state *)arg;
 	table = state->table;
 	philo = state->philo;
-	pthread_mutex_lock(philo->fork);
-	pthread_mutex_lock(table->philos[philo->id+1].fork);
 	printf("%ld philosopher %d is eating", time.tv_sec*1000000 + time.tv_usec, philo->id);
-	pthread_mutex_unlock(philo->fork);
-	pthread_mutex_unlock(table->philos[philo->id+1].fork);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->fork);
+		pthread_mutex_lock(table->philos[(philo->id + 1) % table->nbr_of_philos].fork);
+	}
+	// else
+	// {
+	// 	pthread_mutex_lock(&table->philos[right_fork].fork);
+	// 	pthread_mutex_lock(&philo->fork);
+	// }
 	gettimeofday(&time, NULL);
-	sleep(table->tte);
+	sleep(table->tte * 1000);
+	pthread_mutex_unlock(philo->fork);
+	pthread_mutex_unlock(table->philos[(philo->id + 1) % table->nbr_of_philos].fork);
 	return (NULL);
 }
