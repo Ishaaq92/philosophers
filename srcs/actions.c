@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/26 14:36:25 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/03/26 16:40:58 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	*eat(void *arg)
 	gettimeofday(&time, NULL);
 
 	printf("%ld\n", time_val_diff(table->start, time));
+	sleep(table->tte * 1000);
 
 	// printf("Here -> %d\n", philo->id);
-	// printf("%ld philosopher %d is eating\n", time.tv_sec + time.tv_usec, philo->id);
-	// sleep(table->tte * 1000);
+	printf("%ld philosopher %d is eating\n", time.tv_sec + time.tv_usec, philo->id);
 	// pthread_mutex_unlock(philo->fork);
 	// pthread_mutex_unlock(table->philos[(philo->id + 1) % table->nbr_of_philos].fork);
 	return (NULL);
