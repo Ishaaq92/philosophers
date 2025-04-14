@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 16:48:12 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:50:27 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
+void	print_state(time_t start, int id, enum e_state state)
+{
+	time_t			time;
+
+	if (state == EATING)
+		printf("%ld %d is eating\n", time_val_diff(start, get_time_in_ms()), id);
+	else if (state == THINKING)
+		printf("%ld %d is thinking\n", time_val_diff(start, get_time_in_ms()), id);
+	else if (state == SLEEPING)
+		printf("%ld %d is sleeping\n", time_val_diff(start, get_time_in_ms()), id);
+	return ;
+}
+
 void	free_all(t_table *table, int error)
 {
 	free(table->philos);
@@ -46,11 +59,6 @@ void	free_all(t_table *table, int error)
 time_t	time_val_diff(time_t t0, time_t t1)
 {
 	return (t1 - t0);
-}
-
-void	print_ts(struct timeval t, int id)
-{
-	printf("%ld %d has ", t.tv_sec*1000000 + t.tv_usec, id);
 }
 
 long int	get_time_in_ms(void)
