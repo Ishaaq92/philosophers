@@ -6,7 +6,7 @@
 #    By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 17:46:13 by isahmed           #+#    #+#              #
-#    Updated: 2025/04/14 17:46:20 by isahmed          ###   ########.fr        #
+#    Updated: 2025/04/14 19:42:07 by isahmed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ clean:
 	rm -rf $(OBJECTS)
 
 fclean: clean
-	rm -rf $(OBJECTS)/*
+	rm -rf $(OBJECTS)
 	rm -rf $(BINARY)
 
 re: fclean all

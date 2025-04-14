@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 17:43:51 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:16:10 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ t_table	init_table(int ac, char *av[]);
 long int	get_time_in_ms(void);
 int			ft_atoi(const char *nptr);
 void		free_all(t_table *table, int error);
-time_t		time_val_diff(time_t t0, time_t t1);
+time_t		time_diff(time_t t0, time_t t1);
 void	print_state(time_t start, int id, enum e_state state);
 
 // actions.c
-void	*eat(void *arg);
+void	*eating(void *arg);
 void	start(t_table *table);
 
 #endif
