@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/26 14:17:35 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:48:12 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,20 @@ void	free_all(t_table *table, int error)
 	exit(0);
 }
 
-long int	time_val_diff(struct timeval t0, struct timeval t1)
+time_t	time_val_diff(time_t t0, time_t t1)
 {
-	return ((t1.tv_sec - t0.tv_sec) * 1000000 + (t1.tv_usec - t0.tv_usec));
+	return (t1 - t0);
 }
 
 void	print_ts(struct timeval t, int id)
 {
 	printf("%ld %d has ", t.tv_sec*1000000 + t.tv_usec, id);
+}
+
+long int	get_time_in_ms(void)
+{
+	struct timeval	t1;
+
+	gettimeofday(&t1, NULL);
+	return (t1.tv_sec * 1000 + t1.tv_usec / 1000);
 }

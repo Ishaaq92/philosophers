@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/28 10:28:55 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:17:16 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
-	struct timeval	last_meal;
+	time_t			last_meal;
 	enum e_state	state;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*o_fork;
@@ -42,10 +42,10 @@ typedef struct s_table
 	t_philo			*philos;
 	int				nbr_of_philos;
 	pthread_mutex_t	*forks;
-	struct timeval	start;
-	int				ttd;
-	int				tte;
-	int				tts;
+	time_t			start;
+	time_t			ttd;
+	time_t			tte;
+	time_t			tts;
 }	t_table;
 
 typedef struct s_state
@@ -59,9 +59,10 @@ void	init_philos(t_table *table);
 t_table	init_table(int ac, char *av[]);
 
 // utils.c
+long int	get_time_in_ms(void);
 int			ft_atoi(const char *nptr);
 void		free_all(t_table *table, int error);
-long int	time_val_diff(struct timeval t0, struct timeval t1);
+time_t		time_val_diff(time_t t0, time_t t1);
 
 // actions.c
 void	*eat(void *arg);

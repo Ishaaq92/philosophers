@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/07 16:11:06 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:18:43 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,40 @@
 
 void	*sleeping(void *arg)
 {
-	struct timeval	time;
+	time_t			time;
 	t_state			*state;
 	t_philo			*philo;
 
 	state = (t_state *)arg;
 	philo = state->philo;
-	gettimeofday(&time, NULL);
-	printf("%ld %d is sleeping\n", time_val_diff(state->table->start, time), philo->id);
+	time = get_time_in_ms();
+	printf("%ld %d is sleeping\n", time_val_diff(state->table->start, get_time_in_ms()), philo->id);
 	usleep(state->table->tts * 1000);
 }
 
 void	*eat(void *arg)
 {
 	t_state			*state;
-	struct timeval	time;
+	time_t			time;
 	t_table			*table;
 	t_philo			*philo;
 
 	state = (t_state *)arg;
 	table = state->table;
 	philo = state->philo;
-	gettimeofday(&time, NULL);
-
-	printf("%ld %d is eating\n", time_val_diff(table->start, time), philo->id);
+	time = get_time_in_ms();
+	printf("%ld %d is eating\n", time_val_diff(table->start, get_time_in_ms()), philo->id);
 	usleep(table->tte * 1000);
 	return (NULL);
 }
 
 void	*routine(void *arg)
 {
-	eat(arg);
-	sleeping(arg);
+	while (1)
+	{
+		eat(arg);
+		sleeping(arg);
+	}
 	free(arg);
 	return (NULL);
 }
