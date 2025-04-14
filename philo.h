@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/26 14:15:21 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/03/28 10:28:55 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	struct timeval	last_meal;
 	enum e_state	state;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	*o_fork;
 }   t_philo;
 
 typedef struct s_table

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/28 10:27:12 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/07 11:58:23 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 void	init_philos(t_table *table)
 {
 	int		i;
-	t_philo	philo;
+	t_philo	*philo;
 
 	i = 1;
 	while (i <= table->nbr_of_philos)
 	{
-		philo = table->philos[i];
-		philo.id = i;
-		philo.state = HUNGRY;
-		philo.fork = &table->forks[i];
-		pthread_mutex_init(philo.fork, NULL);
-		philo.last_meal.tv_sec = 0;
-		philo.last_meal.tv_usec = 0;
+		philo = &table->philos[i];
+		philo->id = i;
+		philo->state = HUNGRY;
+		philo->fork = &table->forks[i];
+		philo->o_fork = &table->forks[(i - 1) % table->nbr_of_philos];
+		if (i - 1 != 0)
+			philo->o_fork = &table->forks[table->nbr_of_philos];
+		pthread_mutex_init(philo->fork, NULL);
+		philo->last_meal.tv_sec = 0;
+		philo->last_meal.tv_usec = 0;
 		i ++;
 	}
 }
@@ -40,10 +43,9 @@ t_table	init_table(int ac, char *av[])
 		exit(1);
 	table.nbr_of_philos = ft_atoi(av[1]);
 	table.philos = malloc(sizeof(t_philo) * (table.nbr_of_philos + 1));
-	gettimeofday(&table.start, NULL);
 	if (!table.philos)
-	table.start = start;
 		exit(1);
+	gettimeofday(&table.start, NULL);
 	table.forks = malloc(sizeof(pthread_mutex_t) * (table.nbr_of_philos + 1));
 	if (!table.forks)
 	{

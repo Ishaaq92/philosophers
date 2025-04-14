@@ -6,11 +6,24 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/03/26 16:40:58 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:11:06 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	*sleeping(void *arg)
+{
+	struct timeval	time;
+	t_state			*state;
+	t_philo			*philo;
+
+	state = (t_state *)arg;
+	philo = state->philo;
+	gettimeofday(&time, NULL);
+	printf("%ld %d is sleeping\n", time_val_diff(state->table->start, time), philo->id);
+	usleep(state->table->tts * 1000);
+}
 
 void	*eat(void *arg)
 {
@@ -24,35 +37,35 @@ void	*eat(void *arg)
 	philo = state->philo;
 	gettimeofday(&time, NULL);
 
-	printf("%ld\n", time_val_diff(table->start, time));
-	sleep(table->tte * 1000);
+	printf("%ld %d is eating\n", time_val_diff(table->start, time), philo->id);
+	usleep(table->tte * 1000);
+	return (NULL);
+}
 
-	// printf("Here -> %d\n", philo->id);
-	printf("%ld philosopher %d is eating\n", time.tv_sec + time.tv_usec, philo->id);
-	// pthread_mutex_unlock(philo->fork);
-	// pthread_mutex_unlock(table->philos[(philo->id + 1) % table->nbr_of_philos].fork);
+void	*routine(void *arg)
+{
+	eat(arg);
+	sleeping(arg);
+	free(arg);
 	return (NULL);
 }
 
 void	start(t_table *table)
 {
-	t_state			state;
+	t_state			*state;
 	int				i;
 
 	i = 1;
-	state.table = table;
 	while (i <= table->nbr_of_philos)
 	{
 		if (table->philos[i].id % 2 == 0)
 		{
-			pthread_mutex_lock(&table->forks[i]);
-
-			state.philo = &table->philos[i];
-			// printf("philo %d is eating\n", table->philos[i].id);
-			// printf(" %d\n", state.philo->id);
-			pthread_create(&table->philos[i].thread, NULL, eat, &state);
-
-			pthread_mutex_unlock(&table->forks[i]);
+			// pthread_mutex_lock(&table->forks[i]);
+			state = malloc(sizeof(t_state));
+			state->table = table;
+			state->philo = &table->philos[i];
+			pthread_create(&table->philos[i].thread, NULL, routine, state);
+			// pthread_mutex_unlock(&table->forks[i]);
 		}
 		i ++;
 	}
