@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 19:16:10 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:49:34 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ enum e_state
 	EATING,
 	SLEEPING,
 	THINKING,
-	HUNGRY	
+	HUNGRY,
+	DEAD	
 };
 
 typedef struct s_philo

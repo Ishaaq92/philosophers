@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 19:35:02 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:56:39 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,16 @@ void	*eating(void *arg)
 	state = (t_state *)arg;
 	table = state->table;
 	philo = state->philo;
+	// printf("%ld\n", time_diff(table->start, philo->last_meal));
+	if (time_diff(table->start, philo->last_meal) > table->ttd)
+		print_state(table->start, philo->id, DEAD);
+	else
+		philo->last_meal = get_time_in_ms();
 	pthread_mutex_lock(philo->fork);
 	print_state(table->start, philo->id, HUNGRY);
 	pthread_mutex_lock(&table->forks[(philo->id + 1) % table->nbr_of_philos]);
 	print_state(table->start, philo->id, HUNGRY);
+	philo ->last_meal = get_time_in_ms();
 	time = get_time_in_ms();
 	print_state(table->start, philo->id, EATING);
 	usleep(table->tte * 1000);
@@ -92,7 +98,7 @@ void	start(t_table *table)
 			// pthread_mutex_unlock(&table->forks[i]);
 		}
 	}
-	i = -1;
+	i = 0;
 	while (++i <= table->nbr_of_philos)
 	{
 		if (table->philos[i].id % 2 == 1)

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 19:16:10 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:59:24 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	print_state(time_t start, int id, enum e_state state)
 		printf("%ld %d is sleeping\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == HUNGRY)
 		printf("%ld %d has taken a fork\n", time_diff(start, get_time_in_ms()), id);
+	else if (state == DEAD)
+	{
+		printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id);
+		// Free everything first: Possible leak.
+		exit(0);
+	}
 	return ;
 }
 
