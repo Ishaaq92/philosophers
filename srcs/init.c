@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 17:18:05 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:25:39 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_philos(t_table *table)
 		if (i - 1 != 0)
 			philo->o_fork = &table->forks[table->nbr_of_philos];
 		pthread_mutex_init(philo->fork, NULL);
-		philo->last_meal = 0;
-		philo->last_meal = 0;
+		philo->last_meal = get_time_in_ms();
+		philo->last_meal = get_time_in_ms();
 		i ++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 17:18:43 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:31:13 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	*sleeping(void *arg)
 {
-	time_t			time;
 	t_state			*state;
 	t_philo			*philo;
+	time_t			time;
 
 	state = (t_state *)arg;
 	philo = state->philo;
@@ -28,9 +28,9 @@ void	*sleeping(void *arg)
 void	*eat(void *arg)
 {
 	t_state			*state;
-	time_t			time;
 	t_table			*table;
 	t_philo			*philo;
+	time_t			time;
 
 	state = (t_state *)arg;
 	table = state->table;
@@ -41,12 +41,27 @@ void	*eat(void *arg)
 	return (NULL);
 }
 
+void	*thinking(void *arg)
+{
+	t_state	*state;
+	t_table	*table;
+	t_philo	*philo;
+	time_t	time;
+
+	state = (t_state *)arg;
+	table = state->table;
+	philo = state->philo;
+	time = get_time_in_ms();
+	printf("%ld %d is thinking\n", time_val_diff(table->start, get_time_in_ms()), philo->id);
+}
+
 void	*routine(void *arg)
 {
 	while (1)
 	{
 		eat(arg);
 		sleeping(arg);
+		thinking(arg);
 	}
 	free(arg);
 	return (NULL);
