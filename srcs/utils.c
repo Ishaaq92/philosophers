@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 19:59:24 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 20:31:47 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
-void	print_state(time_t start, int id, enum e_state state)
+void	print_state(t_table *table, int id, enum e_state state)
 {
+	time_t	start;
+
+	start = table->start;
 	if (state == EATING)
 		printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == THINKING)
@@ -47,8 +50,8 @@ void	print_state(time_t start, int id, enum e_state state)
 	else if (state == DEAD)
 	{
 		printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id);
+		free_all(table, 0);
 		// Free everything first: Possible leak.
-		exit(0);
 	}
 	return ;
 }
@@ -59,7 +62,7 @@ void	free_all(t_table *table, int error)
 	free(table->forks);
 	if (error == 1)
 		exit(1);
-	exit(0);
+	pthread_exit(NULL);
 }
 
 time_t	time_diff(time_t t0, time_t t1)

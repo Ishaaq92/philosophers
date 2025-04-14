@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:25 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 17:14:59 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:25:06 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int main(int ac, char *av[])
 	start(&table);
 	while (i <= table.nbr_of_philos)
 	{
-		if (i % 2 == 0)
-			pthread_join(table.philos[i].thread, NULL);
+		// if (i % 2 == 0)
+		pthread_join(table.philos[i].thread, NULL);
 		i++;
 	}
 	free_all(&table, 0);

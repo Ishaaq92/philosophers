@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 17:25:39 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:21:11 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_table	init_table(int ac, char *av[])
 {
 	t_table			table;
 	struct timeval	start;
+	int				i;
 	
 	table.start = get_time_in_ms();
 	if (ac != 5)
@@ -52,6 +53,10 @@ t_table	init_table(int ac, char *av[])
 		free(table.philos);
 		exit(1);	
 	}
+	table.states = malloc(sizeof(t_state *) * (table.nbr_of_philos + 1));
+	i = 1;
+	while (i <= table.nbr_of_philos)
+		table.states[i++] = malloc(sizeof(t_state));
 	table.ttd = ft_atoi(av[2]);
 	table.tte = ft_atoi(av[3]);
 	table.tts = ft_atoi(av[4]);

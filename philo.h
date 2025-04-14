@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 19:49:34 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:03:55 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
+
+
+typedef struct s_state t_state;
 
 enum e_state
 {
@@ -43,6 +46,7 @@ typedef struct s_table
 	t_philo			*philos;
 	int				nbr_of_philos;
 	pthread_mutex_t	*forks;
+	t_state			**states;
 	time_t			start;
 	time_t			ttd;
 	time_t			tte;
@@ -64,7 +68,7 @@ long int	get_time_in_ms(void);
 int			ft_atoi(const char *nptr);
 void		free_all(t_table *table, int error);
 time_t		time_diff(time_t t0, time_t t1);
-void	print_state(time_t start, int id, enum e_state state);
+void		print_state(t_table *table, int id, enum e_state state);
 
 // actions.c
 void	*eating(void *arg);
