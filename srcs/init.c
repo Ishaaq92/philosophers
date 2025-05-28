@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 21:21:11 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/16 20:08:31 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	init_philos(t_table *table)
 		philo->state = HUNGRY;
 		philo->fork = &table->forks[i];
 		philo->o_fork = &table->forks[(i - 1) % table->nbr_of_philos];
-		if (i - 1 != 0)
-			philo->o_fork = &table->forks[table->nbr_of_philos];
+		for (int i = 0; i < table->nbr_of_philos; i++)
+			pthread_mutex_init(&table->forks[i], NULL);
 		pthread_mutex_init(philo->fork, NULL);
 		philo->last_meal = get_time_in_ms();
 		philo->last_meal = get_time_in_ms();
@@ -57,6 +57,9 @@ t_table	init_table(int ac, char *av[])
 	i = 1;
 	while (i <= table.nbr_of_philos)
 		table.states[i++] = malloc(sizeof(t_state));
+	table.ready = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(table.ready, NULL);
+	// free(table.ready);
 	table.ttd = ft_atoi(av[2]);
 	table.tte = ft_atoi(av[3]);
 	table.tts = ft_atoi(av[4]);

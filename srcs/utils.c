@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 20:31:47 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:16:01 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
-void	print_state(t_table *table, int id, enum e_state state)
+t_philo	*print_state(t_table *table, int id, enum e_state state)
 {
 	time_t	start;
 
@@ -50,10 +50,9 @@ void	print_state(t_table *table, int id, enum e_state state)
 	else if (state == DEAD)
 	{
 		printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id);
-		free_all(table, 0);
-		// Free everything first: Possible leak.
+		return (&table->philos[id]);
 	}
-	return ;
+	return (NULL);
 }
 
 void	free_all(t_table *table, int error)

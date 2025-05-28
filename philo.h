@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 21:03:55 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:15:22 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_table
 	t_philo			*philos;
 	int				nbr_of_philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*ready;
 	t_state			**states;
 	time_t			start;
 	time_t			ttd;
@@ -68,7 +69,7 @@ long int	get_time_in_ms(void);
 int			ft_atoi(const char *nptr);
 void		free_all(t_table *table, int error);
 time_t		time_diff(time_t t0, time_t t1);
-void		print_state(t_table *table, int id, enum e_state state);
+t_philo		*print_state(t_table *table, int id, enum e_state state);
 
 // actions.c
 void	*eating(void *arg);

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/04/14 21:04:11 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:22:04 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ void	*sleeping(void *arg)
 	t_table			*table;
 	time_t			time;
 
+	if (time_diff(table->start, philo->last_meal) > table->ttd)
+		print_state(table, philo->id, DEAD);
 	state = (t_state *)arg;
 	table = state->table;
 	philo = state->philo;
 	time = get_time_in_ms();
-	print_state(table, philo->id, SLEEPING);
+	return (print_state(table, philo->id, SLEEPING));
 	usleep(state->table->tts * 1000);
+	return (NULL);
 }
 
 void	*eating(void *arg)
@@ -39,9 +42,8 @@ void	*eating(void *arg)
 	philo = state->philo;
 	// printf("%ld\n", time_diff(table->start, philo->last_meal));
 	if (time_diff(table->start, philo->last_meal) > table->ttd)
-		print_state(table, philo->id, DEAD);
-	else
-		philo->last_meal = get_time_in_ms();
+		return (print_state(table, philo->id, DEAD));
+	philo->last_meal = get_time_in_ms();
 	pthread_mutex_lock(philo->fork);
 	print_state(table, philo->id, HUNGRY);
 	pthread_mutex_lock(&table->forks[(philo->id + 1) % table->nbr_of_philos]);
@@ -52,6 +54,7 @@ void	*eating(void *arg)
 	usleep(table->tte * 1000);
 	pthread_mutex_unlock(philo->fork);
 	pthread_mutex_unlock(&table->forks[(philo->id + 1) % table->nbr_of_philos]);
+	return (NULL);
 }
 
 void	*thinking(void *arg)
@@ -61,31 +64,44 @@ void	*thinking(void *arg)
 	t_philo	*philo;
 	time_t	time;
 
+	if (time_diff(table->start, philo->last_meal) > table->ttd)
+		return (print_state(table, philo->id, DEAD));
 	state = (t_state *)arg;
 	table = state->table;
 	philo = state->philo;
 	time = get_time_in_ms();
 	print_state(table, philo->id, THINKING);
+	return (NULL);
 }
 
 void	*routine(void *arg)
 {
+	t_state	*state;
+
+	state = (t_state *)arg;
+
 	while (1)
 	{
-		eating(arg);
-		sleeping(arg);
-		thinking(arg);
+		if (!eating(arg) && !sleeping(arg) && !thinking(arg))
+			continue ;
+		break;
+		// eating(arg);
+		// sleeping(arg);
+		// thinking(arg);
 	}
-	return (NULL);
+	return (state->philo);
 }
 
 void	start(t_table *table)
 {
-	t_state			**states;
-	int				i;
+	t_state		**states;
+	int			i;
 
 	i = 0;
 	states = table->states;
+	pthread_mutex_lock(table->ready);
+	pthread_mutex_unlock(table->ready);
+	free(table->ready);
 	while (++i <= table->nbr_of_philos)
 	{
 		if (table->philos[i].id % 2 == 0)
