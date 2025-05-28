@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:25 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 15:22:32 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 18:15:54 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int main(int ac, char *av[])
 	// while (!ptr)
 	// 	continue;
 	printf("ptr has a value \n");
-	free_all(&table, 0);
+	// free_all(&table, 0);
 }
