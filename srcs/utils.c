@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 18:18:28 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 23:39:56 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_philo	*print_state(t_table *table, int id, enum e_state state)
 {
 	time_t	start;
 
-	start = table->start;
+	start = table->info.start;
+	// printf("(%ld) ", time_diff(start, table->philos[id].last_meal));
 	if (state == DEAD)
 		return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()),
 		id), &table->philos[id]);

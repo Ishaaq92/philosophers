@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 18:20:59 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/28 23:32:11 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 
 typedef struct s_state t_state;
+typedef struct s_philo t_philo;
 
 enum e_state
 {
@@ -30,6 +31,27 @@ enum e_state
 	HUNGRY,
 	DEAD	
 };
+
+typedef struct	s_info
+{
+	int				nbr_of_philos;
+	int				go;
+	time_t			start;
+	long			ttd;
+	long			tte;
+	long			tts;
+}	t_info;
+
+typedef struct s_table
+{
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	t_info			info;
+	t_state			**states;
+	pthread_mutex_t	*ready;
+	pthread_mutex_t	*printf;
+	pthread_mutex_t	*dead_philo;
+}	t_table;
 
 typedef struct s_philo
 {
@@ -41,20 +63,6 @@ typedef struct s_philo
 	pthread_mutex_t	*o_fork;
 }   t_philo;
 
-typedef struct s_table
-{
-	t_philo			*philos;
-	int				nbr_of_philos;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	*ready;
-	pthread_mutex_t	*printf;
-	pthread_mutex_t	*dead_philo;
-	t_state			**states;
-	time_t			start;
-	time_t			ttd;
-	time_t			tte;
-	time_t			tts;
-}	t_table;
 
 typedef struct s_state
 {
@@ -64,7 +72,8 @@ typedef struct s_state
 
 // init.c
 void	init_philos(t_table *table);
-t_table	init_table(int ac, char *av[]);
+t_table	init_table(int ac, char *av[], t_info info);
+t_info	init_info(int ac, char **av);
 
 // utils.c
 long int	get_time_in_ms(void);
