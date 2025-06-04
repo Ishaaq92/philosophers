@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/02 16:48:15 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:11:27 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,11 @@ void	init_philos(t_table *table)
 		philo->id = i;
 		philo->state = HUNGRY;
 		philo->fork = &table->forks[i];
+		pthread_mutex_init(philo->fork, NULL);
 		if (i == 1)
 			philo->o_fork = &table->forks[table->info.nbr_of_philos];
 		else
 			philo->o_fork = &table->forks[i - 1];
-		// printf("%d, %d\n", philo->id, ((i - 1) % table->info->nbr_of_philos));
-		// for (int i = 0; i < table->info->nbr_of_philos; i++)
-		// 	pthread_mutex_init(&table->forks[i], NULL);
-		pthread_mutex_init(philo->fork, NULL);
-		philo->last_meal = get_time_in_ms();
 		i ++;
 	}
 }
@@ -46,7 +42,7 @@ t_info	init_info(int ac, char **av)
 	info.ttd = (long) ft_atoi(av[2]);
 	info.tte = (long) ft_atoi(av[3]);
 	info.tts = (long) ft_atoi(av[4]);
-	info.t0 = get_time_in_ms();
+	// info.t0 = get_time_in_ms();
 	return (info);
 }
 

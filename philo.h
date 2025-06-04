@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/02 16:48:15 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:05:25 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ typedef struct s_table
 	t_state			**states;
 	pthread_mutex_t	*ready;
 	pthread_mutex_t	*printf;
-	pthread_mutex_t	*dead_philo;
 }	t_table;
 
 typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
+	pthread_mutex_t	*access_lm;
 	long int		last_meal;
 	enum e_state	state;
 	pthread_mutex_t	*fork;

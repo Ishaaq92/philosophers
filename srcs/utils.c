@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/02 16:49:01 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:50:52 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_philo	*print_state(t_table *table, int id, enum e_state state)
 	long	start;
 
 	start = table->info.t0;
-	if (state == DEAD)
-		return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
-	else if (state == EATING)
+	// if (state == DEAD)
+	// 	return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+	if (state == EATING)
 		return (printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	else if (state == THINKING)
 		return(printf("%ld %d is thinking\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
@@ -54,8 +54,13 @@ t_philo	*print_state(t_table *table, int id, enum e_state state)
 
 void	free_all(t_table *table, int error)
 {
+	int	i;
+
+	i = 0;
 	free(table->philos);
-	free(table->forks);
+	while (++i <= table->info.nbr_of_philos)
+		pthread_mutex_destroy(&table->forks[i]);
+	pthread_mutex_destroy(table->ready);
 	if (error == 1)
 		exit(1);
 }
