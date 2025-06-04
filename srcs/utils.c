@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 23:39:56 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/02 16:49:01 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,19 @@ int	ft_atoi(const char *nptr)
 
 t_philo	*print_state(t_table *table, int id, enum e_state state)
 {
-	time_t	start;
+	long	start;
 
-	start = table->info.start;
-	// printf("(%ld) ", time_diff(start, table->philos[id].last_meal));
+	start = table->info.t0;
 	if (state == DEAD)
-		return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()),
-		id), &table->philos[id]);
+		return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	else if (state == EATING)
-		printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id);
+		return (printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	else if (state == THINKING)
-		printf("%ld %d is thinking\n", time_diff(start, get_time_in_ms()), id);
+		return(printf("%ld %d is thinking\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	else if (state == SLEEPING)
-		printf("%ld %d is sleeping\n", time_diff(start, get_time_in_ms()), id);
+		return(printf("%ld %d is sleeping\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	else if (state == HUNGRY)
-		printf("%ld %d has taken a fork\n", time_diff(start, get_time_in_ms()), id);
+		return (printf("%ld %d has taken a fork\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
 	return (NULL);
 }
 
@@ -62,7 +60,7 @@ void	free_all(t_table *table, int error)
 		exit(1);
 }
 
-time_t	time_diff(time_t t0, time_t t1)
+long	time_diff(long t0, long t1)
 {
 	return (t1 - t0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 23:32:11 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/02 16:48:15 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_info
 {
 	int				nbr_of_philos;
 	int				go;
-	time_t			start;
+	long			t0;
 	long			ttd;
 	long			tte;
 	long			tts;
@@ -57,7 +57,7 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
-	time_t			last_meal;
+	long int		last_meal;
 	enum e_state	state;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*o_fork;
@@ -66,6 +66,7 @@ typedef struct s_philo
 
 typedef struct s_state
 {
+	int		id;
 	t_table	*table;
 	t_philo	*philo;
 }	t_state;
@@ -79,7 +80,7 @@ t_info	init_info(int ac, char **av);
 long int	get_time_in_ms(void);
 int			ft_atoi(const char *nptr);
 void		free_all(t_table *table, int error);
-time_t		time_diff(time_t t0, time_t t1);
+long		time_diff(long t0, long t1);
 t_philo		*print_state(t_table *table, int id, enum e_state state);
 
 // actions.c

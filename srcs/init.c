@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 23:32:59 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/02 16:48:15 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_philos(t_table *table)
 		if (i == 1)
 			philo->o_fork = &table->forks[table->info.nbr_of_philos];
 		else
-			philo->o_fork = &table->forks[((i - 1) % table->info.nbr_of_philos)];
+			philo->o_fork = &table->forks[i - 1];
 		// printf("%d, %d\n", philo->id, ((i - 1) % table->info->nbr_of_philos));
 		// for (int i = 0; i < table->info->nbr_of_philos; i++)
 		// 	pthread_mutex_init(&table->forks[i], NULL);
@@ -41,12 +41,12 @@ t_info	init_info(int ac, char **av)
 {
 	t_info	info;
 
-	info.start = get_time_in_ms();
 	info.nbr_of_philos = ft_atoi(av[1]);
 	info.go = 0;
 	info.ttd = (long) ft_atoi(av[2]);
 	info.tte = (long) ft_atoi(av[3]);
 	info.tts = (long) ft_atoi(av[4]);
+	info.t0 = get_time_in_ms();
 	return (info);
 }
 
