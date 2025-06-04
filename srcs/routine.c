@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 13:24:06 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:21:57 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	*routine(void *arg)
 	t_state	*state;
 
 	state = (t_state *)arg;
+	pthread_mutex_lock(state->philo->access_lm);
+	state->philo->last_meal = get_time_in_ms();
+	pthread_mutex_unlock(state->philo->access_lm);
 	pthread_mutex_lock(state->table->ready);
 	if ((state->id % 2) == 1)
 	{
@@ -74,29 +77,8 @@ void	*routine(void *arg)
 	}	
 	else
 		pthread_mutex_unlock(state->table->ready);
-	state->philo->last_meal = get_time_in_ms();
 	// state->table->info.t0 = get_time_in_ms();
 	while (!eating(state) && !sleeping(state) && !thinking(state))
 		continue ;
 	return (state->philo);
-}
-
-void	start(t_table *table)
-{
-	t_state		**states;
-	int			i;
-
-	i = 0;
-	states = table->states;
-	pthread_mutex_lock(table->ready);
-	free(table->ready);
-	while (++i <= table->info.nbr_of_philos)
-	{
-		states[i]->id = i;
-		states[i]->table = table;
-		states[i]->philo = &table->philos[i];
-		pthread_create(&table->philos[i].thread, NULL, routine, states[i]);
-	}
-	table->info.t0 = get_time_in_ms();
-	pthread_mutex_unlock(table->ready);
 }

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 14:11:27 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:14:16 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	init_philos(t_table *table)
 		philo->id = i;
 		philo->state = HUNGRY;
 		philo->fork = &table->forks[i];
-		pthread_mutex_init(philo->fork, NULL);
+		philo->access_lm = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philo->access_lm, NULL);
 		if (i == 1)
 			philo->o_fork = &table->forks[table->info.nbr_of_philos];
 		else

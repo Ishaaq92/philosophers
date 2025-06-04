@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:05:25 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:21:38 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ typedef struct s_philo
 }   t_philo;
 
 
+// routine.c
+void	*routine(void *arg);
+
 typedef struct s_state
 {
 	int		id;
@@ -88,5 +91,8 @@ t_philo	*eating(t_state *state);
 t_philo	*sleeping(t_state *state);
 t_philo	*thinking(t_state *state);
 void	start(t_table *table);
+
+//monitoring.c
+void	monitoring(t_table *table);
 
 #endif

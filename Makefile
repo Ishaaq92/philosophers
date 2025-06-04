@@ -6,7 +6,7 @@
 #    By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 17:46:13 by isahmed           #+#    #+#              #
-#    Updated: 2025/05/28 15:20:09 by isahmed          ###   ########.fr        #
+#    Updated: 2025/06/04 15:20:24 by isahmed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ VPATH = $(SDIR)
 
 BINARY = philo
 
-CFILES = main.c utils.c init.c routine.c
+CFILES = main.c utils.c init.c routine.c monitoring.c
 
 OBJECTS = $(CFILES:%.c=$(ODIR)/%.o)
 
