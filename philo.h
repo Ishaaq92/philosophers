@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 17:07:01 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 18:17:31 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ typedef struct s_philo
 
 // routine.c
 void	*routine(void *arg);
+
+// mutex.c
+void	set_stop(t_table *table, int val);
+int		get_stop(t_table *table);
 
 typedef struct s_state
 {

@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 17:13:58 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 18:21:36 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,11 @@ t_philo	*print_state(t_table *table, int id, enum e_state state)
 
 	start = table->info.t0;
 	pthread_mutex_lock(table->m_printf);
-	pthread_mutex_lock(table->simulation);
-	if (table->info.stop == 1)
+	if (get_stop(table) == 1)
 	{
 		pthread_mutex_unlock(table->m_printf);
-		pthread_mutex_unlock(table->simulation);
 		return (&table->philos[id]);
 	}
-	pthread_mutex_unlock(table->simulation);
 	if (state == EATING)
 		printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == THINKING)

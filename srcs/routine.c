@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:57:53 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 18:31:56 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_philo	*sleeping(t_state *state)
 
 	table = state->table;
 	philo = state->philo;
-	// if (time_diff(philo->last_meal, get_time_in_ms()) >= table->info.ttd)
-	// 	return (print_state(table, philo->id, DEAD));
 	if (print_state(table, philo->id, SLEEPING))
 		return (philo);
 	usleep(table->info.tts * 1000);

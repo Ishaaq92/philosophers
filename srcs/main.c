@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:25 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 17:28:43 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 18:18:50 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ int main(int ac, char *av[])
 	table = init_table(ac, av, info);
 	start(&table);
 	ptr = NULL;
-	i = 1;
 	monitoring(&table);
-	while (i <= info.nbr_of_philos)
-		pthread_join(table.philos[i++].thread, ptr);
-	printf("ptr has a value \n");
+	i = 0;
+	while (++i <= info.nbr_of_philos)
+		pthread_join(table.philos[i].thread, ptr);
 	free_all(&table, 0);
 }
