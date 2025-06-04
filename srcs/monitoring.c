@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:18:52 by isahmed           #+#    #+#             */
-/*   Updated: 2025/06/04 15:19:03 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:34:27 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	*checks(void *arg)
 {
 	t_table	*table;
 	t_philo	*philos;
-
 	table = (t_table *) arg;	
 	philos = table->philos;
+	long	diff;
 	int		i;
 
 	table = (t_table *)arg;
@@ -28,8 +28,12 @@ void	*checks(void *arg)
 	while (42)
 	{
 		pthread_mutex_lock(philos[++i].access_lm);
-		if (time_diff(philos[i].last_meal, get_time_in_ms()) >= table->info.ttd)
-			return (printf("%d has died   --monitoring\n", i), NULL);
+		diff = time_diff(philos[i].last_meal, get_time_in_ms());
+		if (philos[i].last_meal != 0 && diff > table->info.ttd)
+		{
+			
+			return (printf("(%ld) %d has died   --monitoring\n", diff, i), NULL);
+		}
 		pthread_mutex_unlock(philos[i].access_lm);
 		if (i == table->info.nbr_of_philos)
 			i = 0;

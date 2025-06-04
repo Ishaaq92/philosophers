@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:21:57 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:25:26 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	*routine(void *arg)
 	}	
 	else
 		pthread_mutex_unlock(state->table->ready);
-	// state->table->info.t0 = get_time_in_ms();
 	while (!eating(state) && !sleeping(state) && !thinking(state))
 		continue ;
 	return (state->philo);
