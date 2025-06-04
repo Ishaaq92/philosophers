@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:25 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:21:12 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 17:28:43 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 void	start(t_table *table)
 {
-	t_state		**states;
+	t_state		*states;
 	int			i;
 
 	i = 0;
 	states = table->states;
 	pthread_mutex_lock(table->ready);
-	free(table->ready);
 	while (++i <= table->info.nbr_of_philos)
 	{
-		states[i]->id = i;
-		states[i]->table = table;
-		states[i]->philo = &table->philos[i];
-		pthread_create(&table->philos[i].thread, NULL, routine, states[i]);
+		states[i].id = i;
+		states[i].table = table;
+		states[i].philo = &table->philos[i];
+		pthread_create(&table->philos[i].thread, NULL, routine, &states[i]);
 	}
 	table->info.t0 = get_time_in_ms();
 	pthread_mutex_unlock(table->ready);

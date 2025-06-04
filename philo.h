@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 10:29:22 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:21:38 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 17:07:01 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ enum e_state
 
 typedef struct	s_info
 {
-	int				nbr_of_philos;
-	int				go;
-	long			t0;
-	long			ttd;
-	long			tte;
-	long			tts;
+	int		nbr_of_philos;
+	int		stop;
+	int		go;
+	long	t0;
+	long	ttd;
+	long	tte;
+	long	tts;
 }	t_info;
 
 typedef struct s_table
@@ -47,9 +48,10 @@ typedef struct s_table
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	t_info			info;
-	t_state			**states;
+	t_state			*states;
 	pthread_mutex_t	*ready;
-	pthread_mutex_t	*printf;
+	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*simulation;
 }	t_table;
 
 typedef struct s_philo
@@ -62,7 +64,6 @@ typedef struct s_philo
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*o_fork;
 }   t_philo;
-
 
 // routine.c
 void	*routine(void *arg);

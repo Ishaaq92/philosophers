@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:28:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 15:14:16 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 17:09:32 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_philos(t_table *table)
 		philo->id = i;
 		philo->state = HUNGRY;
 		philo->fork = &table->forks[i];
+		philo->last_meal = 0;
 		philo->access_lm = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philo->access_lm, NULL);
 		if (i == 1)
@@ -43,7 +44,7 @@ t_info	init_info(int ac, char **av)
 	info.ttd = (long) ft_atoi(av[2]);
 	info.tte = (long) ft_atoi(av[3]);
 	info.tts = (long) ft_atoi(av[4]);
-	// info.t0 = get_time_in_ms();
+	info.stop = 0;
 	return (info);
 }
 
@@ -57,18 +58,14 @@ t_table	init_table(int ac, char *av[], t_info info)
 	table.info = info;
 	table.ready = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(table.ready, NULL);
+	table.simulation = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(table.simulation, NULL);
+	table.m_printf = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(table.m_printf, NULL);
 	table.philos = malloc(sizeof(t_philo) * (info.nbr_of_philos + 1));
-	if (!table.philos)
-		exit(1);
 	table.forks = malloc(sizeof(pthread_mutex_t) * (info.nbr_of_philos + 1));
 	if (!table.forks)
-	{
-		free(table.philos);
-		exit(1);	
-	}
-	table.states = malloc(sizeof(t_state *) * (info.nbr_of_philos + 1));
-	while (i <= info.nbr_of_philos)
-		table.states[i++] = malloc(sizeof(t_state));
+	table.states = malloc(sizeof(t_state) * (info.nbr_of_philos + 1));
 	init_philos(&table);
 	return (table);
 }

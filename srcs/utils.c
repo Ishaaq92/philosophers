@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:25:04 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/04 14:50:52 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/04 17:13:58 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,24 @@ t_philo	*print_state(t_table *table, int id, enum e_state state)
 	long	start;
 
 	start = table->info.t0;
-	// if (state == DEAD)
-	// 	return (printf("%ld %d died\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+	pthread_mutex_lock(table->m_printf);
+	pthread_mutex_lock(table->simulation);
+	if (table->info.stop == 1)
+	{
+		pthread_mutex_unlock(table->m_printf);
+		pthread_mutex_unlock(table->simulation);
+		return (&table->philos[id]);
+	}
+	pthread_mutex_unlock(table->simulation);
 	if (state == EATING)
-		return (printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+		printf("%ld %d is eating\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == THINKING)
-		return(printf("%ld %d is thinking\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+		printf("%ld %d is thinking\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == SLEEPING)
-		return(printf("%ld %d is sleeping\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+		printf("%ld %d is sleeping\n", time_diff(start, get_time_in_ms()), id);
 	else if (state == HUNGRY)
-		return (printf("%ld %d has taken a fork\n", time_diff(start, get_time_in_ms()), id), &table->philos[id]);
+		printf("%ld %d has taken a fork\n", time_diff(start, get_time_in_ms()), id);
+	pthread_mutex_unlock(table->m_printf);
 	return (NULL);
 }
 
