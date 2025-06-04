@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 08:43:32 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/05/28 23:39:25 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/05/30 18:11:43 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_philo	*sleeping(t_state *state)
 	t_table	*table;
 	time_t	time;
 
-	if (time_diff(philo->last_meal, get_time_in_ms()) >= table->info.ttd)
+	if (time_diff(philo->last_meal, get_time_in_ms()) > table->info.ttd)
 		return (print_state(table, philo->id, DEAD));
 	table = state->table;
 	philo = state->philo;
@@ -34,7 +34,7 @@ t_philo	*eating(t_state *state)
 
 	table = state->table;
 	philo = state->philo;
-	if (time_diff(philo->last_meal, get_time_in_ms()) >= table->info.ttd)
+	if (time_diff(philo->last_meal, get_time_in_ms()) > table->info.ttd)
 		return (print_state(table, philo->id, DEAD));
 	philo->last_meal = get_time_in_ms();
 	pthread_mutex_lock(philo->fork);
@@ -57,7 +57,7 @@ t_philo	*thinking(t_state *state)
 	t_philo	*philo;
 	time_t	time;
 
-	if (time_diff(philo->last_meal, get_time_in_ms()) >= table->info.ttd)
+	if (time_diff(philo->last_meal, get_time_in_ms()) > table->info.ttd)
 		return (print_state(table, philo->id, DEAD));
 	table = state->table;
 	philo = state->philo;
