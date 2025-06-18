@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/16 16:15:54 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/18 20:23:12 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ void	init_info(t_info *info, char **av)
 	info->tte = ft_atoi(av[2]);
 	info->ttd = ft_atoi(av[3]);
 	info->tts = ft_atoi(av[4]);
+
+	info->print = malloc(sizeof(pthread_mutex_t));
+	info->sim = malloc(sizeof(pthread_mutex_t));
+	if (!info->print || !info->sim)
+		exit(1);
+	pthread_mutex_init(info->print, NULL);
+	pthread_mutex_init(info->sim, NULL);
 }
 
 void	init_table(t_table *table, t_info *info)
@@ -33,15 +40,17 @@ void	init_philos(t_table *table, t_info *info)
 
 	philos = table->philos;
 	i = 0;
-    philos[0].id = -1;
-    philos[0].o_fork = NULL;
+	philos[0].id = -1;
+	philos[0].o_fork = NULL;
 	while (++i <= info->nbr_of_philos)
 	{
 		philos[i].id = i;
-		pthread_mutex_init(&philos[i].fork, NULL);
-		if (i == 1)
-			philos[i].o_fork = &philos[info->nbr_of_philos].fork;
-		else
-			philos[i].o_fork = &philos[i - 1].fork;
+		philos[i].info = *info;
+		philos[i].fork = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philos[i].fork, NULL);
 	}
+	philos[1].o_fork = philos[info->nbr_of_philos].fork;
+	i = 1;
+	while (++i <= info->nbr_of_philos)
+		philos[i].o_fork = philos[i - 1].fork;
 }
