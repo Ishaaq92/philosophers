@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 20:32:06 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/18 21:09:17 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 enum e_state
 {
 	EATING,
 	SLEEPING,
-	THINKING,
-	HUNGRY,
-	DEAD	
+	thinking,
+	hungry,
+	dead	
 };
 
 typedef struct s_info
@@ -40,6 +41,8 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
+	long			last_meal;
+	long			start;
 	t_info			info;
 	pthread_t		thread;
 	pthread_mutex_t	*fork;
@@ -55,9 +58,11 @@ typedef struct s_table
 // utils.c
 int			ft_atoi(const char *nptr);
 t_philo		*print_state(t_philo *philo, enum e_state state);
+long int	get_time_in_ms(void);
+long		time_diff(long t0, long t1);
 
 // routine.c
-void    *routine(void *routine);
+void    *routine(void *arg);
 
 // init.c
 void	init_philos(t_table *table, t_info *info);

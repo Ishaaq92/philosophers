@@ -6,11 +6,36 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 20:32:41 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/18 20:50:33 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+t_philo		*print_state(t_philo *philo, enum e_state state)
+{
+	int	id;
+
+	id = philo->id;
+	pthread_mutex_lock(philo->info.print);
+	if (state == EATING)
+		printf("%ld %d is eating\n", time_diff(philo->last_meal, get_time_in_ms()), id);
+	pthread_mutex_unlock(philo->info.print);
+	return (philo);
+}
+
+long	time_diff(long t0, long t1)
+{
+	return (t1 - t0);
+}
+
+long int	get_time_in_ms(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+}
 
 int	ft_atoi(const char *nptr)
 {
@@ -34,14 +59,3 @@ int	ft_atoi(const char *nptr)
 	return (sign * total);
 }
 
-t_philo		*print_state(t_philo *philo, enum e_state state)
-{
-	int	id;
-
-	id = philo->id;
-	pthread_mutex_lock(philo->info.print);
-	if (state == EATING)
-		printf("%d %d is eating\n", 200, id);
-	pthread_mutex_unlock(philo->info.print);
-	return (philo);
-}
