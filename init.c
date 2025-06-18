@@ -1,0 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
+/*   Updated: 2025/06/16 16:15:54 by ishaaq           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+void	init_info(t_info *info, char **av)
+{
+	info->nbr_of_philos = ft_atoi(av[1]);
+	info->tte = ft_atoi(av[2]);
+	info->ttd = ft_atoi(av[3]);
+	info->tts = ft_atoi(av[4]);
+}
+
+void	init_table(t_table *table, t_info *info)
+{
+	table->info = *info;
+	table->philos = malloc(sizeof(t_philo) * (info->nbr_of_philos + 1));
+}
+
+void	init_philos(t_table *table, t_info *info)
+{
+	int		i;
+	t_philo	*philos;
+
+	philos = table->philos;
+	i = 0;
+    philos[0].id = -1;
+    philos[0].o_fork = NULL;
+	while (++i <= info->nbr_of_philos)
+	{
+		philos[i].id = i;
+		pthread_mutex_init(&philos[i].fork, NULL);
+		if (i == 1)
+			philos[i].o_fork = &philos[info->nbr_of_philos].fork;
+		else
+			philos[i].o_fork = &philos[i - 1].fork;
+	}
+}
