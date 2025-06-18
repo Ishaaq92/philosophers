@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:09:17 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/18 21:16:27 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ enum e_state
 {
 	EATING,
 	SLEEPING,
-	thinking,
-	hungry,
-	dead	
+	THINKING,
+	HUNGRY,
+	DEAD
 };
 
 typedef struct s_info
@@ -63,6 +63,7 @@ long		time_diff(long t0, long t1);
 
 // routine.c
 void    *routine(void *arg);
+void	thinking(t_philo *philo);
 
 // init.c
 void	init_philos(t_table *table, t_info *info);
