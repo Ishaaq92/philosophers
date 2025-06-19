@@ -31,7 +31,9 @@ re: fclean all
 
 clean:
 	rm -rf $(ODIR)/$(OBJECTS)
+	rm -rf $(ODIR)/
 
 fclean:
 	rm -rf $(ODIR)/$(OBJECTS)
+	rm -rf $(ODIR)/
 	rm -rf $(BINARY)
