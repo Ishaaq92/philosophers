@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/06/19 15:55:54 by isahmed          ###   ########.fr       */
+=======
+/*   Updated: 2025/06/19 17:34:20 by ishaaq           ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +26,7 @@ void	start(t_table *table)
 	pthread_mutex_lock(table->info.sim);
 	while (++i <= table->info.nbr_of_philos)
 		pthread_create(&philos[i].thread, NULL, routine, &philos[i]);
-	// usleep(table->info.tte * 1000);
+	usleep(table->info.tte * 1000 / 2);
 	pthread_mutex_unlock(table->info.sim);
 }
 
@@ -67,6 +71,7 @@ int	main(int ac, char **av)
    init_info(&info, ac, av);
    init_table(&table, &info);
    init_philos(&table, &info);
+   monitoring(&table);
    start(&table);
    join_thread(&table);
    free_all(&table);
