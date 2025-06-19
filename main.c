@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 15:43:59 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 15:55:54 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	main(int ac, char **av)
 	t_info	info;
 	t_table	table;
 	
-	if (ac != 5)
+	if (ac != 5 && ac != 6)
 		return (1);
-   init_info(&info, av);
+   init_info(&info, ac, av);
    init_table(&table, &info);
    init_philos(&table, &info);
    start(&table);

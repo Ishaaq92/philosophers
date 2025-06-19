@@ -6,19 +6,24 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:08:24 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 17:08:04 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_info(t_info *info, char **av)
+void	init_info(t_info *info, int ac, char **av)
 {
 	info->nbr_of_philos = ft_atoi(av[1]);
-	info->tte = ft_atoi(av[2]);
-	info->ttd = ft_atoi(av[3]);
+	info->ttd = ft_atoi(av[2]);
+	info->tte = ft_atoi(av[3]);
 	info->tts = ft_atoi(av[4]);
-
+	if (ac == 6)
+		info->rounds = ft_atoi(av[5]);
+	else
+		info->rounds = -1;
+	if (info->nbr_of_philos <= 0 || info->ttd <= 0 || info->tte < 0 || info->tts < 0 )
+		exit(1);
 	info->print = malloc(sizeof(pthread_mutex_t));
 	info->sim = malloc(sizeof(pthread_mutex_t));
 	if (!info->print || !info->sim)

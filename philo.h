@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:16:27 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 17:08:47 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_info
 	int				nbr_of_philos;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*sim;
+	int				rounds;
 	int				tte;
 	int				tts;
 	int				ttd;
@@ -68,6 +69,6 @@ void	thinking(t_philo *philo);
 // init.c
 void	init_philos(t_table *table, t_info *info);
 void	init_table(t_table *table, t_info *info);
-void	init_info(t_info *info, char **av);
+void	init_info(t_info *info, int ac, char **av);
 
 #endif
