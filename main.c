@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:13:36 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 10:43:28 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	start(t_table *table)
 	pthread_mutex_lock(table->info.sim);
 	while (++i <= table->info.nbr_of_philos)
 		pthread_create(&philos[i].thread, NULL, routine, &philos[i]);
+	// usleep(table->info.tte * 1000);
 	pthread_mutex_unlock(table->info.sim);
 }
 

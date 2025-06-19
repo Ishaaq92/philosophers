@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:22:07 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:24:12 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 10:47:56 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	eating(t_philo *philo)
 	if (!philo || !philo->fork || !philo->o_fork)
 		return ;
 	pthread_mutex_lock(philo->fork);
+	print_state(philo, HUNGRY);
 	pthread_mutex_lock(philo->o_fork);
+	print_state(philo, HUNGRY);
 	print_state(philo, EATING);
 	philo->last_meal = get_time_in_ms();
 	usleep(philo->info.tte * 1000);
@@ -34,6 +36,8 @@ void	thinking(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
+	if (!philo || !philo->fork || !philo->o_fork)
+		return ;
 	print_state(philo, SLEEPING);
 	usleep(philo->info.tts * 1000);
 }
@@ -50,8 +54,7 @@ void    *routine(void *arg)
 	philo->last_meal = get_time_in_ms();
 	philo->start = get_time_in_ms();
 	if (philo->id % 2 == 1)
-		usleep(info.tte * 1000 / 2);
-	// Debugging
+		usleep(info.tte * 1000 / 3);
 	while (42)
 	{
 		eating(philo);

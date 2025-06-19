@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:20:23 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 10:50:30 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ t_philo		*print_state(t_philo *philo, enum e_state state)
 		printf("%ld %d is eating\n", time_diff(philo->start, get_time_in_ms()), id);
 	else if (state == THINKING)
 		printf("%ld %d is thinking\n", time_diff(philo->start, get_time_in_ms()), id);
+	else if (state == SLEEPING)
+		printf("%ld %d is sleeping\n", time_diff(philo->start, get_time_in_ms()), id);
+	else if (state == HUNGRY)
+		printf("%ld %d has taken a fork\n", time_diff(philo->start, get_time_in_ms()), id);
+		
 	pthread_mutex_unlock(philo->info.print);
 	return (philo);
 }
