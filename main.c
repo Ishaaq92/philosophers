@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 10:43:28 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/19 15:43:59 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ void	join_thread(t_table *table)
 		printf("ptr has a value");
 }
 
+void	free_all(t_table *table)
+{
+	int		i;
+	t_info	info;
+	t_philo	*philos;
+
+	i = 0;
+	info = table->info;
+	philos = table->philos;
+	while (++i <= info.nbr_of_philos)
+		free(philos[i].fork);
+	free(philos);
+	free(info.print);
+	free(info.sim);
+}
+
 int	main(int ac, char **av)
 {
 	t_info	info;
@@ -53,4 +69,5 @@ int	main(int ac, char **av)
    init_philos(&table, &info);
    start(&table);
    join_thread(&table);
+   free_all(&table);
 }
