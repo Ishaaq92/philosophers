@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 10:50:30 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/19 11:07:54 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ t_philo		*print_state(t_philo *philo, enum e_state state)
 		
 	pthread_mutex_unlock(philo->info.print);
 	return (philo);
+}
+
+void	set_last_meal(t_philo *philo, long val)
+{
+	pthread_mutex_lock(philo->m_last_meal);
+	philo->last_meal = val;
+	pthread_mutex_unlock(philo->m_last_meal);
+}
+
+long	get_last_meal(t_philo *philo)
+{
+	long	lm;
+
+	pthread_mutex_lock(philo->m_last_meal);
+	lm = philo->last_meal;
+	pthread_mutex_unlock(philo->m_last_meal);
+	return (lm);
 }
 
 long	time_diff(long t0, long t1)

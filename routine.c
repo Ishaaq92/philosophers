@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:22:07 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 10:47:56 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/19 11:19:06 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	eating(t_philo *philo)
 	pthread_mutex_lock(philo->o_fork);
 	print_state(philo, HUNGRY);
 	print_state(philo, EATING);
-	philo->last_meal = get_time_in_ms();
+	set_last_meal(philo, get_time_in_ms());
+	// philo->last_meal = get_time_in_ms();
 	usleep(philo->info.tte * 1000);
 	pthread_mutex_unlock(philo->o_fork);
 	pthread_mutex_unlock(philo->fork);

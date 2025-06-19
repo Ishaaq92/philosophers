@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/18 21:08:24 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 11:05:12 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	init_philos(t_table *table, t_info *info)
 		philos[i].info = *info;
 		philos[i].start = get_time_in_ms();
 		philos[i].last_meal = philos[i].start;
+		philos[i].m_last_meal = malloc(sizeof(pthread_mutex_t));
 		philos[i].fork = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philos[i].fork, NULL);
+		pthread_mutex_init(philos[i].m_last_meal, NULL);
 	}
 	i = 1;
 	while (++i <= info->nbr_of_philos)
