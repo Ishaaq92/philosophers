@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 18:23:23 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 21:26:45 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_info
 	int				nbr_of_philos;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*sim;
+	int				stop;
 	int				rounds;
 	int				tte;
 	int				tts;
@@ -61,6 +62,7 @@ typedef struct s_table
 // utils.c
 int			ft_atoi(const char *nptr);
 t_philo		*print_state(t_philo *philo, enum e_state state);
+int			check_simulation(t_philo *philo);
 long int	get_time_in_ms(void);
 long		time_diff(long t0, long t1);
 void		set_last_meal(t_philo *philo, long val);

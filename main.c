@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 18:37:35 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 20:40:13 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	start(t_table *table)
 
 	philos = table->philos;
 	i = 0;
-	pthread_mutex_lock(table->info.sim);
 	while (++i <= table->info.nbr_of_philos)
 		pthread_create(&philos[i].thread, NULL, routine, &philos[i]);
 	usleep(table->info.tte * 1000 / 2);
@@ -37,8 +36,8 @@ void	join_thread(t_table *table)
 	ptr = NULL;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_join(philos[i].thread, ptr);
-	if (ptr)
-		printf("ptr has a value");
+	// if (ptr)
+	// 	printf("ptr has a value");
 }
 
 void	free_all(t_table *table)
@@ -59,7 +58,6 @@ void	free_all(t_table *table)
 		free(philos[i].m_last_meal);
 		free(philos[i].m_start);
 	}
-	
 	free(philos);
 	free(info.print);
 	free(info.sim);

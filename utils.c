@@ -6,64 +6,43 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 18:31:51 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 21:26:28 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo		*print_state(t_philo *philo, enum e_state state)
+t_philo		*print_state(t_philo *philo, enum e_state s)
 {
 	int	id;
 
 	id = philo->id;
+	check_simulation(philo);
 	pthread_mutex_lock(philo->info.print);
-	if (state == EATING)
+	if (s == EATING)
 		printf("%ld %d is eating\n", time_diff(get_start(philo), get_time_in_ms()), id);
-	else if (state == THINKING)
+	else if (s == THINKING)
 		printf("%ld %d is thinking\n", time_diff(get_start(philo), get_time_in_ms()), id);
-	else if (state == SLEEPING)
+	else if (s == SLEEPING)
 		printf("%ld %d is sleeping\n", time_diff(get_start(philo), get_time_in_ms()), id);
-	else if (state == HUNGRY)
+	else if (s == HUNGRY)
 		printf("%ld %d has taken a fork\n", time_diff(get_start(philo), get_time_in_ms()), id);
-	else if (state == DEAD)
+	else if (s == DEAD)
 		printf("%ld %d has died\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	pthread_mutex_unlock(philo->info.print);
 	return (philo);
 }
 
-void	set_start(t_philo *philo, long val)
+int	check_simulation(t_philo *philo)
 {
-	pthread_mutex_lock(philo->m_start);
-	philo->start = val;
-	pthread_mutex_unlock(philo->m_start);
-}
+	t_info	info;
+	int		stop;
 
-long	get_start(t_philo *philo)
-{
-	long	start;
-
-	pthread_mutex_lock(philo->m_start);
-	start = philo->start;
-	pthread_mutex_unlock(philo->m_start);
-	return (start);
-}
-
-void	set_last_meal(t_philo *philo, long val)
-{
-	pthread_mutex_lock(philo->m_last_meal);
-	philo->last_meal = val;
-	pthread_mutex_unlock(philo->m_last_meal);
-}
-
-long	get_last_meal(t_philo *philo)
-{
-	long	lm;
-
-	pthread_mutex_lock(philo->m_last_meal);
-	lm = philo->last_meal;
-	pthread_mutex_unlock(philo->m_last_meal);
-	return (lm);
+	info = philo->info;
+	pthread_mutex_lock(info.sim);
+	stop = info.stop;
+	pthread_mutex_unlock(info.sim);
+	return (stop);
 }
 
 long	time_diff(long t0, long t1)

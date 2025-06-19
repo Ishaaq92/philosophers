@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:58:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 17:41:34 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 20:43:32 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,25 @@ void	*monitor(void *arg)
 	philos = table->philos;
 	ttd = table->info.ttd;
 	i = 1;
-	usleep(table->info.tte * 1000  );
-	while (42)
+	usleep(table->info.tte * 1000);
+	pthread_mutex_lock(table->info.sim);
+	pthread_mutex_unlock(table->info.sim);
+	while (time_diff(get_last_meal(&philos[i]), get_time_in_ms()) <= (long) ttd)
 	{
-		if (time_diff(get_last_meal(&philos[i]), get_time_in_ms()) > (long) ttd)
-		    break ;
 		i ++;
 		if (i > table->info.nbr_of_philos)
 			i = 1;
+		// usleep(table->info.tte * 1000 / 3);
 	}
 	print_state(&philos[i], DEAD);
+	// pthread_mutex_lock(table->info.print);
 	return (&philos[i]);
 }
 
 void    monitoring(t_table  *table)
 {
 	pthread_t   thread;
-	void        *ptr;
-
-	ptr = NULL;
+	
+	pthread_mutex_lock(table->info.sim);
 	pthread_create(&thread, NULL, monitor, table);
-	// pthread_join(thread, ptr);
-	// if (ptr)
-	// 	printf("has died");
 }
