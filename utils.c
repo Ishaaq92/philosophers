@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 11:07:54 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/19 18:31:51 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,34 @@ t_philo		*print_state(t_philo *philo, enum e_state state)
 	id = philo->id;
 	pthread_mutex_lock(philo->info.print);
 	if (state == EATING)
-		printf("%ld %d is eating\n", time_diff(philo->start, get_time_in_ms()), id);
+		printf("%ld %d is eating\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	else if (state == THINKING)
-		printf("%ld %d is thinking\n", time_diff(philo->start, get_time_in_ms()), id);
+		printf("%ld %d is thinking\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	else if (state == SLEEPING)
-		printf("%ld %d is sleeping\n", time_diff(philo->start, get_time_in_ms()), id);
+		printf("%ld %d is sleeping\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	else if (state == HUNGRY)
-		printf("%ld %d has taken a fork\n", time_diff(philo->start, get_time_in_ms()), id);
-		
+		printf("%ld %d has taken a fork\n", time_diff(get_start(philo), get_time_in_ms()), id);
+	else if (state == DEAD)
+		printf("%ld %d has died\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	pthread_mutex_unlock(philo->info.print);
 	return (philo);
+}
+
+void	set_start(t_philo *philo, long val)
+{
+	pthread_mutex_lock(philo->m_start);
+	philo->start = val;
+	pthread_mutex_unlock(philo->m_start);
+}
+
+long	get_start(t_philo *philo)
+{
+	long	start;
+
+	pthread_mutex_lock(philo->m_start);
+	start = philo->start;
+	pthread_mutex_unlock(philo->m_start);
+	return (start);
 }
 
 void	set_last_meal(t_philo *philo, long val)

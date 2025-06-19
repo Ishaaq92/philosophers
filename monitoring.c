@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:58:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 11:36:31 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/19 17:41:34 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,13 @@ void	*monitor(void *arg)
 	usleep(table->info.tte * 1000  );
 	while (42)
 	{
-		// pthread_mutex_lock(philos[i].info.print);
-		// printf("%ld %d\n", time_diff(get_last_meal(&philos[i]), get_time_in_ms()), philos[i].id);
-		// pthread_mutex_unlock(philos[i].info.print);
 		if (time_diff(get_last_meal(&philos[i]), get_time_in_ms()) > (long) ttd)
 		    break ;
 		i ++;
 		if (i > table->info.nbr_of_philos)
 			i = 1;
 	}
-	// while (time_diff(get_last_meal(&philos[++i]), get_time_in_ms()) <= ttd)
-	//     continue ;
-	// return (NULL);
+	print_state(&philos[i], DEAD);
 	return (&philos[i]);
 }
 

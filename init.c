@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 17:36:12 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 18:29:53 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,13 @@ void	init_philos(t_table *table, t_info *info)
 		philos[i].info = *info;
 		philos[i].start = get_time_in_ms();
 		philos[i].last_meal = philos[i].start;
+		// set_last_meal(&philos[i], get_time_in_ms());
+		// set_start(&philos[i], get_time_in_ms());
+		philos[i].m_start = malloc(sizeof(pthread_mutex_t));
 		philos[i].m_last_meal = malloc(sizeof(pthread_mutex_t));
 		philos[i].fork = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philos[i].fork, NULL);
+		pthread_mutex_init(philos[i].m_start, NULL);
 		pthread_mutex_init(philos[i].m_last_meal, NULL);
 	}
 	i = 1;

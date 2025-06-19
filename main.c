@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 17:39:25 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 18:37:35 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,15 @@ void	free_all(t_table *table)
 	info = table->info;
 	philos = table->philos;
 	while (++i <= info.nbr_of_philos)
+	{
+		pthread_mutex_destroy(philos[i].fork);
+		pthread_mutex_destroy(philos[i].m_last_meal);
+		pthread_mutex_destroy(philos[i].m_start);
 		free(philos[i].fork);
+		free(philos[i].m_last_meal);
+		free(philos[i].m_start);
+	}
+	
 	free(philos);
 	free(info.print);
 	free(info.sim);

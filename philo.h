@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 17:36:43 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/19 18:23:23 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	t_info			info;
 	pthread_t		thread;
 	pthread_mutex_t	*m_last_meal;
+	pthread_mutex_t	*m_start;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*o_fork;
 }	t_philo;
@@ -64,6 +65,8 @@ long int	get_time_in_ms(void);
 long		time_diff(long t0, long t1);
 void		set_last_meal(t_philo *philo, long val);
 long		get_last_meal(t_philo *philo);
+void		set_start(t_philo *philo, long val);
+long		get_start(t_philo *philo);
 
 // routine.c
 void    *routine(void *arg);
