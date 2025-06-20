@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:22:07 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 12:05:31 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:30:37 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	eating(t_philo *philo)
 	if (!print_state(philo, HUNGRY) || !print_state(philo, HUNGRY) || !print_state(philo, EATING))
 		return (0);
 	set_last_meal(philo, get_time_in_ms());
-	// printf("%d last meal = %ld\n", philo->id, time_diff(philo->last_meal, get_time_in_ms()));
 	precise_action(philo->info.tte);
 	if (philo->id % 2 == 1)
 	{
@@ -44,6 +43,8 @@ int	eating(t_philo *philo)
 
 int	thinking(t_philo *philo)
 {
+	if (!philo)
+		return (0);
 	if (print_state(philo, THINKING) == NULL)
 		return (0);
 	return (1);
@@ -51,8 +52,8 @@ int	thinking(t_philo *philo)
 
 int	sleeping(t_philo *philo)
 {
-	// if (!philo || !philo->fork || !philo->o_fork)
-	// 	return ;
+	if (!philo)
+		return (0);
 	if (print_state(philo, SLEEPING) == NULL)
 		return (0);
 	precise_action(philo->info.tts);

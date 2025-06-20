@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 11:26:49 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:40:40 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@ void    monitoring(t_table  *table);
 
 // precision.c
 void    precise_action(int tta);
+
+// edge.c
+void    *single_philo(t_table *table);
 
 #endif

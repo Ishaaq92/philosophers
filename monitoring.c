@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:58:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 12:05:39 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:43:00 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	*monitor(void *arg)
 	print_state(&philos[i], DEAD);
 	set_sim(&philos[i], 1);
 	// printf("stop = %d\n ", *table->info.stop);
-	// pthread_mutex_lock(table->info.print);
 	return (&philos[i]);
 }
 
@@ -54,4 +53,5 @@ void    monitoring(t_table  *table)
 	set_sim(&table->philos[1], 0);
 	// pthread_mutex_lock(table->info.sim);
 	pthread_create(&thread, NULL, monitor, table);
+	pthread_join(thread, NULL);
 }

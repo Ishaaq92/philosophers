@@ -6,28 +6,31 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 11:55:52 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:43:28 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	start(t_table *table)
+static void	*start(t_table *table)
 {
 	t_philo	*philos;
 	int		i;
 
 	pthread_mutex_lock(table->info.sim);
 	philos = table->philos;
+	if (table->info.nbr_of_philos == 1)
+		return (pthread_mutex_unlock(table->info.sim), single_philo(table));
 	i = 0;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_create(&philos[i].thread, NULL, routine, &philos[i]);
 	usleep(table->info.tte * 1000 / 2);
 	pthread_mutex_unlock(table->info.sim);
-    monitoring(table);
+	monitoring(table);
+	return(NULL);
 }
 
-void	join_thread(t_table *table)
+static void	join_thread(t_table *table)
 {
 	t_philo	*philos;
 	int		i;
@@ -38,8 +41,6 @@ void	join_thread(t_table *table)
 	ptr = NULL;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_join(philos[i].thread, ptr);
-	// if (ptr)
-	// 	printf("ptr has a value");
 }
 
 void	free_all(t_table *table)
