@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 21:26:45 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/20 09:11:22 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ void	init_info(t_info *info, int ac, char **av);
 
 // monitoring.c
 void    monitoring(t_table  *table);
+
+// precision.c
+void    precise_action(t_philo *philo, int tta);
 
 #endif
