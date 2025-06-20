@@ -6,13 +6,13 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:22:07 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 09:14:45 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:05:31 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -24,12 +24,11 @@ void	eating(t_philo *philo)
 		pthread_mutex_lock(philo->o_fork);
 		pthread_mutex_lock(philo->fork);
 	}
-	print_state(philo, HUNGRY);
-	print_state(philo, HUNGRY);
-	print_state(philo, EATING);
+	if (!print_state(philo, HUNGRY) || !print_state(philo, HUNGRY) || !print_state(philo, EATING))
+		return (0);
 	set_last_meal(philo, get_time_in_ms());
-	precise_action(philo, philo->info.tte);
-	// usleep(philo->info.tte * 1000);
+	// printf("%d last meal = %ld\n", philo->id, time_diff(philo->last_meal, get_time_in_ms()));
+	precise_action(philo->info.tte);
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_unlock(philo->fork);
@@ -40,28 +39,31 @@ void	eating(t_philo *philo)
 		pthread_mutex_unlock(philo->o_fork);
 		pthread_mutex_unlock(philo->fork);
 	}
+	return (1);
 }
 
-void	thinking(t_philo *philo)
+int	thinking(t_philo *philo)
+{
+	if (print_state(philo, THINKING) == NULL)
+		return (0);
+	return (1);
+}
+
+int	sleeping(t_philo *philo)
 {
 	// if (!philo || !philo->fork || !philo->o_fork)
 	// 	return ;
-	print_state(philo, THINKING);
-}
-
-void	sleeping(t_philo *philo)
-{
-	// if (!philo || !philo->fork || !philo->o_fork)
-	// 	return ;
-	print_state(philo, SLEEPING);
-	precise_action(philo, philo->info.tts);
-	// usleep(philo->info.tts * 1000);
+	if (print_state(philo, SLEEPING) == NULL)
+		return (0);
+	precise_action(philo->info.tts);
+	return (1);
 }
 
 void    *routine(void *arg)
 {
 	t_philo *philo;
 	t_info  info;
+	int		i;
 
 	philo = (t_philo *) arg;
 	info = philo->info; 
@@ -70,14 +72,9 @@ void    *routine(void *arg)
 	set_last_meal(philo, get_time_in_ms());
 	set_start(philo, get_time_in_ms());
 	if (philo->id % 2 == 1)
-		precise_action(philo, philo->info.tte / 2);
-		// usleep(info.tte * 1000 / 3);
-	while (42)
-	{
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
-		break ;
-	}
+		precise_action(philo->info.tte / 2);
+	i = 0;
+	while (eating(philo) && sleeping(philo) && thinking(philo) && (i++ < info.rounds || info.rounds == -1))
+		continue ;
 	return (NULL);
 }

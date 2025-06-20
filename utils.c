@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/19 21:26:28 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/06/20 11:46:47 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_philo		*print_state(t_philo *philo, enum e_state s)
 	int	id;
 
 	id = philo->id;
-	check_simulation(philo);
+	if (get_sim(philo) == 1)
+		exit(1);
 	pthread_mutex_lock(philo->info.print);
 	if (s == EATING)
 		printf("%ld %d is eating\n", time_diff(get_start(philo), get_time_in_ms()), id);
@@ -28,21 +29,12 @@ t_philo		*print_state(t_philo *philo, enum e_state s)
 	else if (s == HUNGRY)
 		printf("%ld %d has taken a fork\n", time_diff(get_start(philo), get_time_in_ms()), id);
 	else if (s == DEAD)
+	{
 		printf("%ld %d has died\n", time_diff(get_start(philo), get_time_in_ms()), id);
+		return (NULL);
+	}
 	pthread_mutex_unlock(philo->info.print);
 	return (philo);
-}
-
-int	check_simulation(t_philo *philo)
-{
-	t_info	info;
-	int		stop;
-
-	info = philo->info;
-	pthread_mutex_lock(info.sim);
-	stop = info.stop;
-	pthread_mutex_unlock(info.sim);
-	return (stop);
 }
 
 long	time_diff(long t0, long t1)

@@ -6,7 +6,7 @@
 /*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 09:11:22 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/20 11:26:49 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_info
 	int				nbr_of_philos;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*sim;
-	int				stop;
+	int				*stop;
 	int				rounds;
 	int				tte;
 	int				tts;
@@ -61,18 +61,22 @@ typedef struct s_table
 
 // utils.c
 int			ft_atoi(const char *nptr);
-t_philo		*print_state(t_philo *philo, enum e_state state);
-int			check_simulation(t_philo *philo);
+t_philo		*print_state(t_philo *philo, enum e_state s);
 long int	get_time_in_ms(void);
 long		time_diff(long t0, long t1);
+
+// mutexes.c
 void		set_last_meal(t_philo *philo, long val);
 long		get_last_meal(t_philo *philo);
 void		set_start(t_philo *philo, long val);
 long		get_start(t_philo *philo);
+void		set_sim(t_philo *philo, long val);
+long		get_sim(t_philo *philo);
+
 
 // routine.c
 void    *routine(void *arg);
-void	thinking(t_philo *philo);
+int	thinking(t_philo *philo);
 
 // init.c
 void	init_philos(t_table *table, t_info *info);
@@ -83,6 +87,6 @@ void	init_info(t_info *info, int ac, char **av);
 void    monitoring(t_table  *table);
 
 // precision.c
-void    precise_action(t_philo *philo, int tta);
+void    precise_action(int tta);
 
 #endif
