@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 12:40:40 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/29 21:10:10 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,21 @@ typedef struct s_table
 int			ft_atoi(const char *nptr);
 t_philo		*print_state(t_philo *philo, enum e_state s);
 long int	get_time_in_ms(void);
-long		time_diff(long t0, long t1);
+long		diff(long t0, long t1);
+void		free_all(t_table *table);
 
 // mutexes.c
 void		set_last_meal(t_philo *philo, long val);
 long		get_last_meal(t_philo *philo);
 void		set_start(t_philo *philo, long val);
 long		get_start(t_philo *philo);
-void		set_sim(t_philo *philo, long val);
-long		get_sim(t_philo *philo);
+void		set_sim(t_info *info, int val);
+int			get_sim(t_philo *philo);
 
 
 // routine.c
 void    *routine(void *arg);
-int	thinking(t_philo *philo);
+int		thinking(t_philo *philo);
 
 // init.c
 void	init_philos(t_table *table, t_info *info);
@@ -91,5 +92,9 @@ void    precise_action(int tta);
 
 // edge.c
 void    *single_philo(t_table *table);
+
+// forks.c
+void		unlock_fork(t_philo *philo);
+void		lock_fork(t_philo *philo);
 
 #endif

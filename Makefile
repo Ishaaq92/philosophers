@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+         #
+#    By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/16 16:37:25 by ishaaq            #+#    #+#              #
-#    Updated: 2025/06/20 12:16:39 by ishaaq           ###   ########.fr        #
+#    Updated: 2025/06/29 18:16:00 by isahmed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra  -I. -g
 ODIR = objs
 CC = gcc
-CFILES = main.c init.c utils.c routine.c monitoring.c mutexes.c precision.c edge.c
+CFILES = main.c init.c utils.c routine.c monitoring.c mutexes.c precision.c edge.c forks.c
 BINARY = philo
 OBJECTS = $(CFILES:%.c=$(ODIR)/%.o)
 

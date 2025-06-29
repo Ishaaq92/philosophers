@@ -3,34 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   mutexes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:28:58 by isahmed           #+#    #+#             */
-/*   Updated: 2025/06/20 11:24:21 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/29 21:11:53 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_sim(t_philo *philo, long val)
+void	set_sim(t_info *info, int val)
 {
-	t_info	info;
-
-	info = philo->info;
-	pthread_mutex_lock(info.sim);
-	*info.stop = val;
-	pthread_mutex_unlock(info.sim);
-	// printf("stop in set_sim = %d\n", *info.stop);
+	pthread_mutex_lock(info->sim);
+	*info->stop = val;
+	// printf("set_sim was called value = %d\n", *info->stop);
+	pthread_mutex_unlock(info->sim);
 }
 
-long	get_sim(t_philo *philo)
+int	get_sim(t_philo *philo)
 {
-	long	stop;
+	int		stop;
 	t_info	info;
 
 	info = philo->info;
 	pthread_mutex_lock(info.sim);
 	stop = *info.stop;
+	// printf("get_sim was called value = %d\n", stop);
 	pthread_mutex_unlock(info.sim);
 	return (stop);
 }

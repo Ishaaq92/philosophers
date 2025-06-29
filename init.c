@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/20 11:24:55 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/06/29 21:09:14 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	init_info(t_info *info, int ac, char **av)
 {
-	int	stop;
-
-	stop = 0;
 	info->nbr_of_philos = ft_atoi(av[1]);
 	info->ttd = ft_atoi(av[2]);
 	info->tte = ft_atoi(av[3]);
@@ -28,7 +25,8 @@ void	init_info(t_info *info, int ac, char **av)
 		exit(1);
 	info->print = malloc(sizeof(pthread_mutex_t));
 	info->sim = malloc(sizeof(pthread_mutex_t));
-	info->stop = &stop;
+	info->stop = malloc(sizeof(int));
+	*info->stop = 0;
 	if (!info->print || !info->sim)
 		exit(1);
 	pthread_mutex_init(info->print, NULL);
@@ -54,8 +52,8 @@ void	init_philos(t_table *table, t_info *info)
 	{
 		philos[i].id = i;
 		philos[i].info = *info;
-		philos[i].start = get_time_in_ms();
-		philos[i].last_meal = philos[i].start;
+		philos[i].start = -1;
+		philos[i].last_meal = -1;
 		philos[i].m_start = malloc(sizeof(pthread_mutex_t));
 		philos[i].m_last_meal = malloc(sizeof(pthread_mutex_t));
 		philos[i].fork = malloc(sizeof(pthread_mutex_t));
