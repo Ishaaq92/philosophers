@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/11 19:47:44 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/13 14:56:30 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_philo		*print_state(t_philo *philo, enum e_state s)
 	else if (s == DEAD || get_sim(philo) == 1)
 	{
 		printf("%ld %d died\n", diff(get_start(philo), get_time_in_ms()), id);
+		set_sim(&philo->info, 1);
 		return (pthread_mutex_unlock(philo->info.print), NULL);
 	}
 	pthread_mutex_unlock(philo->info.print);

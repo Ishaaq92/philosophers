@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/29 21:10:10 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/13 15:24:55 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ enum e_state
 typedef struct s_info
 {
 	int				nbr_of_philos;
+	int				*remaining;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*sim;
+	pthread_mutex_t	*m_remaining;
 	int				*stop;
 	int				rounds;
 	int				tte;
@@ -73,6 +75,8 @@ void		set_start(t_philo *philo, long val);
 long		get_start(t_philo *philo);
 void		set_sim(t_info *info, int val);
 int			get_sim(t_philo *philo);
+void		decrement_remaining(t_info *info);
+int			get_remaining(t_info *info);
 
 
 // routine.c
@@ -88,7 +92,7 @@ void	init_info(t_info *info, int ac, char **av);
 void    monitoring(t_table  *table);
 
 // precision.c
-void    precise_action(int tta);
+void    precise_action(t_philo *philo, int tta);
 
 // edge.c
 void    *single_philo(t_table *table);

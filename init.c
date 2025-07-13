@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/06/29 21:09:14 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/13 17:17:03 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	init_info(t_info *info, int ac, char **av)
 {
 	info->nbr_of_philos = ft_atoi(av[1]);
+	info->remaining = malloc(sizeof(int));
+	*info->remaining = info->nbr_of_philos;
 	info->ttd = ft_atoi(av[2]);
 	info->tte = ft_atoi(av[3]);
 	info->tts = ft_atoi(av[4]);
@@ -25,12 +27,14 @@ void	init_info(t_info *info, int ac, char **av)
 		exit(1);
 	info->print = malloc(sizeof(pthread_mutex_t));
 	info->sim = malloc(sizeof(pthread_mutex_t));
+	info->m_remaining = malloc(sizeof(pthread_mutex_t));
 	info->stop = malloc(sizeof(int));
 	*info->stop = 0;
-	if (!info->print || !info->sim)
+	if (!info->print || !info->sim || !info->m_remaining)
 		exit(1);
 	pthread_mutex_init(info->print, NULL);
 	pthread_mutex_init(info->sim, NULL);
+	pthread_mutex_init(info->m_remaining, NULL);
 }
 
 void	init_table(t_table *table, t_info *info)

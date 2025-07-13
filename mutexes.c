@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutexes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:28:58 by isahmed           #+#    #+#             */
-/*   Updated: 2025/06/29 21:11:53 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/13 17:14:01 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,25 @@ long	get_last_meal(t_philo *philo)
 	lm = philo->last_meal;
 	pthread_mutex_unlock(philo->m_last_meal);
 	return (lm);
+}
+
+int	get_remaining(t_info *info)
+{
+	int	val;
+	
+	val = -1;	
+	pthread_mutex_lock(info->m_remaining);
+	if (info->remaining)
+		val = *info->remaining;
+	// printf("remaining = %d\n", val);
+	pthread_mutex_unlock(info->m_remaining);
+	return (val);
+}
+
+void	decrement_remaining(t_info *info)
+{
+	pthread_mutex_lock(info->m_remaining);
+	(*info->remaining) = (*info->remaining) - 1;
+	// printf("remaining = %d\n", *info->remaining);
+	pthread_mutex_unlock(info->m_remaining);
 }

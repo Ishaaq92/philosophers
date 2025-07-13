@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edge.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:11:48 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/08 19:35:11 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/12 10:51:42 by ishaaq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    *edge_routine(void *arg)
 	set_last_meal(philo, get_time_in_ms());
 	set_start(philo, get_time_in_ms());
 	print_state(philo, HUNGRY);
-	precise_action(philo->info.ttd);
+	precise_action(philo, philo->info.ttd);
 	print_state(philo, DEAD);
 	return (NULL);
 }
