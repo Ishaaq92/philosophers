@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/14 17:30:03 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/14 18:11:55 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	join_thread(t_table *table)
 	ptr = NULL;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_join(philos[i].thread, ptr);
-	// printf("philosopher threads terminated\n");
 }
 
 int	main(int ac, char **av)

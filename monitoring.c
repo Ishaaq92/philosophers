@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:58:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/14 17:31:59 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/14 18:12:20 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,4 @@ void	monitoring(t_table *table)
 	set_sim(&table->info, 0);
 	pthread_create(&thread, NULL, monitor, table);
 	pthread_join(thread, NULL);
-	printf("monitoring thread terminated\n");
 }
