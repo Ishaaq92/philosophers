@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:15:05 by isahmed           #+#    #+#             */
-/*   Updated: 2025/06/29 18:51:23 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/14 17:28:21 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	lock_fork(t_philo *philo)
 {
-	// printf("1");
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->fork);
@@ -29,7 +28,6 @@ void	lock_fork(t_philo *philo)
 
 void	unlock_fork(t_philo *philo)
 {
-	// printf("1");
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_unlock(philo->fork);

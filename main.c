@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:26 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/13 17:14:46 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/07/14 17:30:03 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	*start(t_table *table)
 	i = 0;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_create(&philos[i].thread, NULL, routine, &philos[i]);
-	// precise_action(&philos[1], philos[1].info.ttd / 2);
 	pthread_mutex_unlock(table->info.sim);
 	monitoring(table);
 	return (NULL);
@@ -42,15 +41,14 @@ static void	join_thread(t_table *table)
 	ptr = NULL;
 	while (++i <= table->info.nbr_of_philos)
 		pthread_join(philos[i].thread, ptr);
-	// printf("last val of sim = %d\n", get_sim(&table->philos[1]));
-	printf("philosopher threads terminated\n");
+	// printf("philosopher threads terminated\n");
 }
 
 int	main(int ac, char **av)
 {
 	t_info	info;
 	t_table	table;
-	
+
 	if (ac != 5 && ac != 6)
 		return (1);
 	init_info(&info, ac, av);

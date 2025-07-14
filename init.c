@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/13 17:17:03 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/07/14 17:29:18 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	init_info(t_info *info, int ac, char **av)
 	info->rounds = -1;
 	if (ac == 6)
 		info->rounds = ft_atoi(av[5]);
-	if (info->nbr_of_philos <= 0 || info->ttd <= 0 || info->tte < 0 || info->tts < 0 || info->rounds < -1 || info->rounds == 0)
+	if (info->nbr_of_philos <= 0 || info->ttd <= 0 || info->tte < 0
+		|| info->tts < 0 || info->rounds < -1 || info->rounds == 0)
 		exit(1);
 	info->print = malloc(sizeof(pthread_mutex_t));
 	info->sim = malloc(sizeof(pthread_mutex_t));

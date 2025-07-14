@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaaq <ishaaq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/13 14:56:30 by ishaaq           ###   ########.fr       */
+/*   Updated: 2025/07/14 17:43:39 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo		*print_state(t_philo *philo, enum e_state s)
+t_philo	*print_state(t_philo *philo, enum e_state s)
 {
 	int	id;
 
@@ -21,21 +21,24 @@ t_philo		*print_state(t_philo *philo, enum e_state s)
 		return (NULL);
 	pthread_mutex_lock(philo->info.print);
 	if (s == EATING)
-		printf("%ld %d is eating\n", diff(get_start(philo), get_time_in_ms()), id);
+		printf("%ld %d is eating\n", diff(get_start(philo),
+				get_time_in_ms()), id);
 	else if (s == THINKING)
-		printf("%ld %d is thinking\n", diff(get_start(philo), get_time_in_ms()), id);
+		printf("%ld %d is thinking\n", diff(get_start(philo),
+				get_time_in_ms()), id);
 	else if (s == SLEEPING)
-		printf("%ld %d is sleeping\n", diff(get_start(philo), get_time_in_ms()), id);
+		printf("%ld %d is sleeping\n", diff(get_start(philo),
+				get_time_in_ms()), id);
 	else if (s == HUNGRY)
-		printf("%ld %d has taken a fork\n", diff(get_start(philo), get_time_in_ms()), id);
+		printf("%ld %d has taken a fork\n", diff(get_start(philo),
+				get_time_in_ms()), id);
 	else if (s == DEAD || get_sim(philo) == 1)
 	{
 		printf("%ld %d died\n", diff(get_start(philo), get_time_in_ms()), id);
 		set_sim(&philo->info, 1);
 		return (pthread_mutex_unlock(philo->info.print), NULL);
 	}
-	pthread_mutex_unlock(philo->info.print);
-	return (philo);
+	return (pthread_mutex_unlock(philo->info.print), philo);
 }
 
 void	free_all(t_table *table)
@@ -96,4 +99,3 @@ int	ft_atoi(const char *nptr)
 	}
 	return (sign * total);
 }
-
