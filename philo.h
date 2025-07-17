@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:26:45 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/14 17:39:32 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:22:51 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_info(t_info *info, int ac, char **av);
 
 // monitoring.c
 void	monitoring(t_table *table);
+void	print_dead(t_philo *philo);
 
 // precision.c
 void	precise_action(t_philo *philo, int tta);
