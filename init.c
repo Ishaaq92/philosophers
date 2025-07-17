@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:13:00 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/14 17:29:18 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:34:14 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	init_info(t_info *info, int ac, char **av)
 {
 	info->nbr_of_philos = ft_atoi(av[1]);
-	info->remaining = malloc(sizeof(int));
-	*info->remaining = info->nbr_of_philos;
 	info->ttd = ft_atoi(av[2]);
 	info->tte = ft_atoi(av[3]);
 	info->tts = ft_atoi(av[4]);
@@ -26,6 +24,8 @@ void	init_info(t_info *info, int ac, char **av)
 	if (info->nbr_of_philos <= 0 || info->ttd <= 0 || info->tte < 0
 		|| info->tts < 0 || info->rounds < -1 || info->rounds == 0)
 		exit(1);
+	info->remaining = malloc(sizeof(int));
+	*info->remaining = info->nbr_of_philos;
 	info->print = malloc(sizeof(pthread_mutex_t));
 	info->sim = malloc(sizeof(pthread_mutex_t));
 	info->m_remaining = malloc(sizeof(pthread_mutex_t));
