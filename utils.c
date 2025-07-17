@@ -6,7 +6,7 @@
 /*   By: isahmed <isahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:30:17 by ishaaq            #+#    #+#             */
-/*   Updated: 2025/07/14 17:43:39 by isahmed          ###   ########.fr       */
+/*   Updated: 2025/07/17 15:50:23 by isahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_philo	*print_state(t_philo *philo, enum e_state s)
 	int	id;
 
 	id = philo->id;
-	if (get_sim(philo) == 1)
-		return (NULL);
 	pthread_mutex_lock(philo->info.print);
+	if (get_sim(philo) == 1)
+		return (pthread_mutex_unlock(philo->info.print), NULL);
 	if (s == EATING)
 		printf("%ld %d is eating\n", diff(get_start(philo),
 				get_time_in_ms()), id);
@@ -32,12 +32,6 @@ t_philo	*print_state(t_philo *philo, enum e_state s)
 	else if (s == HUNGRY)
 		printf("%ld %d has taken a fork\n", diff(get_start(philo),
 				get_time_in_ms()), id);
-	else if (s == DEAD || get_sim(philo) == 1)
-	{
-		printf("%ld %d died\n", diff(get_start(philo), get_time_in_ms()), id);
-		set_sim(&philo->info, 1);
-		return (pthread_mutex_unlock(philo->info.print), NULL);
-	}
 	return (pthread_mutex_unlock(philo->info.print), philo);
 }
 
@@ -59,10 +53,13 @@ void	free_all(t_table *table)
 		free(philos[i].m_last_meal);
 		free(philos[i].m_start);
 	}
+	free(info.remaining);
+	pthread_mutex_destroy(info.m_remaining);
+	free(info.m_remaining);
+	free(info.stop);
 	free(philos);
 	free(info.print);
 	free(info.sim);
-	free(info.stop);
 }
 
 long	diff(long t0, long t1)
